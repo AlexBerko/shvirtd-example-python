@@ -3,7 +3,10 @@ include:
 
 services:
   web:
-    image: cr.yandex/crpt37231nms3ov3judl/task5:latest
+#    image: cr.yandex/crpt37231nms3ov3judl/task5:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.python
     networks:
       backend:
         ipv4_address: 172.20.0.5
