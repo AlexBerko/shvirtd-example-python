@@ -1,0 +1,9 @@
+/nginx/
+/haproxy/
+/venv/
+/.git/
+__pycache__
+.env
+.dev-env
+proxy.yaml
+schema.pdf

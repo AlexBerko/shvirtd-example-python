@@ -1,0 +1,37 @@
+include:
+  - proxy.yaml
+
+services:
+  web:
+    image: cr.yandex/crpt37231nms3ov3judl/task5:latest
+    networks:
+      backend:
+        ipv4_address: 172.20.0.5
+# я бы сделал переменные через .env файл, но в задании указано не создавать новый и не редактировать старый
+    environment:
+      - DB_HOST=172.20.0.10
+      - DB_USER=app
+      - DB_PASSWORD=QwErTy1234
+      - DB_NAME=virtd
+      - DB_TABLE_NAME=requests_prod
+    restart: on-failure
+    depends_on:
+      db:
+        condition: service_started
+
+  db:
+    image: mysql:8
+    networks:
+      backend:
+        ipv4_address: 172.20.0.10
+    restart: on-failure
+    env_file:
+      - .env
+  
+  
+networks:
+  backend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
